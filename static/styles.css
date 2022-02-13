@@ -13,12 +13,19 @@ body{
 
 }
 
+.heading{
+   text-align: center;
+   padding-top: 20px;
+   display: flex;
+   max-width: 800px;
+   margin:auto;
+   margin-bottom: 20px;
+}
 h1{
+   margin: auto;
    font-size: 60px;
    font-weight: bold;
    text-align: center;
-   padding-top: 2%;
-   padding-bottom: 20px;
 }
 
 h2{
