@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href = '{{ url_for('static',filename='style.css') }}' rel = 'stylesheet' type = 'text/css'> 
+    <title>News Shortner</title>
+<script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+<body>
+    <h1>News</h1>
+    <div class="container">
+        {% for article in news %}
+            <div class="item">
+                <div class="item-header">
+                    <h2>{{ article.heading }}</h2>
+                </div>
+                <div class="item-content">
+                    <p>{{ article.summary }}</p>
+                </div>
+                <div class="source">
+                    <p>Read more on <a href="{{ article.link }}">{{ article.sitename }}</a></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6dcf6ad10dc08581',m:'7eKs9fVcOFdawWXYNE8PHkdnPip4XaVGgtGE3anrBK0-1644769574-0-AQMrBWg3A1jJSFCbjuJKOusVxK1wAR0bP091rAzu43ryJgORHzrRXeViy/7KAoDaP3AEpMDva/ZHQUuHn6d2SyfFvLLqFSjRVjxuj4tLJzopGpPLnGrHVfxfHOibYdfFaNhPv/ca6vojVaDPzSddH+5D8BkhIZIbYHa+uMQGFe7FZgIndkWa/rlPUmh/Z+Z6YQ==',s:[0xffe644f85a,0x16093924d8],}})();</script></body>
+
+</html>

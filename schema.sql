@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS news;
+
+CREATE TABLE news (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    heading TEXT NOT NULL,
+    links TEXT NOT NULL,
+    summary TEXT NOT NULL
+);
