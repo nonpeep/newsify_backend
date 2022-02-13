@@ -15,7 +15,7 @@ body{
 
 .heading{
    text-align: center;
-   padding-top: 20px;
+   padding: 30px;
    display: flex;
    max-width: 800px;
    margin:auto;
