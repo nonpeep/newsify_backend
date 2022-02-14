@@ -1,11 +1,11 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-
+import csv
 
 class Scraper():
     """Parent class for specific news site scrapers."""
-
+    site_name = ''
     def get_articles(self) -> list:
         """Returns a list of tuples formatted as (headline, link)."""
         pass
@@ -18,15 +18,15 @@ class Scraper():
         """Get the current news, returns a list of tuples (headline, content, link)"""
 
         articles = self.get_articles()
-        return [(a[0], self.get_article_content(a[1]), a[1]) for a in articles]
+        return [(self.site_name, a[0], self.get_article_content(a[1]), a[1]) for a in articles]
 
+    
 
 class TheHindu(Scraper):
     site_name = 'The Hindu'
     url = 'https://www.thehindu.com/'
 
     def get_articles(self):
-        
         page = requests.get(self.url)
         soup = BeautifulSoup(page.text, "html.parser")
         articles = soup.find_all(class_="e-p-slide")
@@ -58,3 +58,16 @@ class NDTV(Scraper):
         soup = BeautifulSoup(page.text, "html.parser")
         article_div = soup.find_all(id= 'ins_storybody')
         return article_div[0].text
+
+
+def storing_in_csv(Class):
+    """Stores the news in a csv file"""
+    
+    filename = "data.csv"
+    fields = ['Site name', 'Headline', 'Summary', 'Link']
+    with open(filename, 'w', encoding="utf-8", newline="") as csvfile:  
+        csvwriter = csv.writer(csvfile) 
+        # writing the fields 
+        csvwriter.writerow(fields) 
+        # writing the news
+        csvwriter.writerows(Class.get_news())
