@@ -1,6 +1,30 @@
 import re
+import csv
 import requests
+from .similarity import get_unique
 from bs4 import BeautifulSoup
+
+
+def store_csv(data):
+    """Stores the news in a csv file"""
+    
+    filename = "./data.csv"
+    fields = ['Site name', 'Headline', 'Summary', 'Link']
+    with open(filename, 'w', encoding="utf-8", newline="") as csvfile:  
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(fields)
+        csvwriter.writerows(data)
+
+def scrape_all():
+    """Scrapes from all known sites."""
+
+    print("Starting scraper...")
+    scrapers = [TheHindu(), NDTV()]
+    news = [scraper.get_news() for scraper in scrapers]
+    print("Removing duplicates...")
+    news = get_unique(news)
+    store_csv(news)
+    print("Data stored on data.csv file")
 
 
 class Scraper():
@@ -15,10 +39,10 @@ class Scraper():
         pass
 
     def get_news(self) -> list:
-        """Get the current news, returns a list of tuples (headline, content, link)"""
+        """Get the current news, returns a list of tuples (sitename, headline, content, link)"""
 
         articles = self.get_articles()
-        return [(a[0], self.get_article_content(a[1]), a[1]) for a in articles]
+        return [(self.site_name, a[0], self.get_article_content(a[1]), a[1]) for a in articles]
 
 
 class TheHindu(Scraper):
@@ -26,7 +50,6 @@ class TheHindu(Scraper):
     url = 'https://www.thehindu.com/'
 
     def get_articles(self):
-        
         page = requests.get(self.url)
         soup = BeautifulSoup(page.text, "html.parser")
         articles = soup.find_all(class_="e-p-slide")
@@ -46,7 +69,6 @@ class NDTV(Scraper):
     url = 'https://www.ndtv.com/india/'
 
     def get_articles(self):
-
         page = requests.get(self.url)
         soup = BeautifulSoup(page.text, "html.parser")
         articles = soup.find_all(class_ = "news_Itm-cont")
