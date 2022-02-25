@@ -16,7 +16,8 @@ def predict():
 
 @app.route('/headlines', methods=['POST'])
 def headlines():
-    if site := request.json.get('site'):
+    site = request.json.get('site')
+    if site:
         url = f'https://www.google.com/search?q={site}&tbm=nws&ei'
     else:
         url = request.json['url']
