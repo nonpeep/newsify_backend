@@ -1,5 +1,5 @@
 import os
-import scraper
+from . import scraper
 from flask import Flask, request
 from transformers import pipeline
 
