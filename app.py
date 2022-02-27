@@ -4,6 +4,7 @@ import requests
 from newspaper import Article
 from bs4 import BeautifulSoup
 from flask import Flask, request
+from flask_cors import CORS
 from transformers import pipeline
 
 
@@ -11,6 +12,7 @@ model_name = "deepset/roberta-base-squad2"
 model = pipeline('question-answering', model='./model', tokenizer='./model')
  
 app = Flask(__name__)
+CORS(app)
 
 
 def gnews_get(url):
