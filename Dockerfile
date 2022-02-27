@@ -15,6 +15,7 @@ RUN pip install flask gunicorn transformers
 RUN pip install torch==1.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip install requests
 RUN pip install beautifulsoup4
+RUN pip install newspaper3k
 
 # The bootstrap script will download the model file into the container image
 COPY ./bootstrap.py .

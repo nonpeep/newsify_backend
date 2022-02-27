@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+from newspaper import Article
 from bs4 import BeautifulSoup
 from flask import Flask, request
 from transformers import pipeline
@@ -45,6 +46,14 @@ def headlines():
         url = request.json['url']
     headlines, nextp = gnews_get(url)
     return {'headlines': headlines, 'nextpage': nextp}
+
+@app.route('/article', methods=['POST'])
+def article():
+    url = request.json['url']
+    article = Article(url)
+    article.download()
+    article.parse()
+    return {'text': article.text}
 
 if __name__ == "__main__":
    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
