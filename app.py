@@ -37,10 +37,14 @@ def gnews_get(url):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    """Predict the answer given a question and context"""
+
     return model(request.json)
 
 @app.route('/headlines', methods=['POST'])
 def headlines():
+    """Get the headlines given a search or search url"""
+
     site = request.json.get('site')
     if site:
         url = f'https://www.google.com/search?q={site}&tbm=nws&ei'
@@ -51,6 +55,8 @@ def headlines():
 
 @app.route('/article', methods=['POST'])
 def article():
+    """Get the article content given an article link"""
+
     url = request.json['url']
     article = Article(url)
     article.download()
