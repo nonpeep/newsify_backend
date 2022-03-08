@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, request
 from flask_cors import CORS
 from transformers import pipeline
+from fake_useragent import UserAgent
 
 
 model_name = "deepset/roberta-base-squad2"
@@ -17,7 +18,7 @@ CORS(app)
 
 def gnews_get(url):
     list_of_urls = [] 
-    page = requests.get(url)
+    page = requests.get(url, headers={'User-Agent': UserAgent().random})
     soup = BeautifulSoup(page.text, "html.parser")
     article_div = soup.find_all('a')
     for a in article_div:

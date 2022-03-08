@@ -11,7 +11,7 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
  
 # Install production dependencies.
-RUN pip install flask flask-cors gunicorn transformers requests beautifulsoup4 newspaper3k 
+RUN pip install flask flask-cors gunicorn transformers requests beautifulsoup4 newspaper3k fake-useragent
 RUN pip install torch==1.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 
 # The bootstrap script will download the model file into the container image
